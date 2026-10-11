@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const ICON_FIX = { dal: "🥜" };
+
 
 export default function NavLinks({ categories }) {
   const pathname = usePathname();
 
   return (
-    <nav className="flex gap-2 overflow-x-auto pb-3">
+    <nav className="flex gap-1 overflow-x-auto py-2">
       {categories.map((c) => {
         const href = `/category/${c.slug}`;
         const active = pathname === href;
@@ -18,13 +18,14 @@ export default function NavLinks({ categories }) {
           <Link
             key={c.id}
             href={href}
-            className={`whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition ${
+            className={`flex items-center gap-1.5 whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-semibold transition ${
               active
-                ? "bg-green-600 text-white"
-                : "bg-base-200 text-gray-700 hover:bg-green-100"
+                ? "bg-green-50 text-green-700"
+                : "text-gray-800 hover:bg-gray-100"
             }`}
           >
-            {ICON_FIX[c.slug] || c.icon} {c.nameBn}
+            <span>{c.icon}</span>
+            <span>{c.nameBn}</span>
           </Link>
         );
       })}

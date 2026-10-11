@@ -7,38 +7,37 @@ export default async function Navbar() {
   const categories = await getCategories();
 
   return (
-    <header className="border-b border-base-300 bg-base-100">
-      <div className="mx-auto max-w-6xl px-4">
-        <div className="flex items-center justify-between py-3">
-            <Link href="/" className="flex items-center gap-2">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-            src="/logo-icon.png"
-            alt="বাজার দর লোগো"
-            className="h-10 w-10 object-contain"
-        />
-        <span className="leading-tight">
-            <span className="block text-xl font-bold text-green-700 sm:text-2xl">
-            বাজার দর
+    <header className="bg-white">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+        <Link href="/" className="flex items-center gap-3">
+         <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-700 text-xl">
+        🛒
+        </span>
+          <span className="leading-tight">
+            <span className="block text-xl font-bold text-gray-900">
+              বাজার দর
             </span>
             <span className="block text-xs text-gray-500">{banglaDate()}</span>
-        </span>
+          </span>
         </Link>
 
-          <div className="flex items-center gap-2">
-            <Link href="/signin" className="btn btn-outline btn-sm sm:btn-md">
-              সাইন ইন
-            </Link>
-            <Link
-              href="/signup"
-              className="btn btn-success btn-sm text-white sm:btn-md"
-            >
-              সাইন আপ
-            </Link>
-          </div>
+        <div className="flex items-center gap-2">
+          <Link href="/signin" className="btn btn-ghost btn-sm sm:btn-md">
+            সাইন ইন
+          </Link>
+          <Link
+            href="/signup"
+            className="btn btn-sm border-0 bg-green-700 text-white hover:bg-green-800 sm:btn-md"
+          >
+            সাইন আপ
+          </Link>
         </div>
+      </div>
 
-        <NavLinks categories={categories} />
+      <div className="border-t border-gray-200">
+        <div className="mx-auto max-w-6xl px-4">
+          <NavLinks categories={categories} />
+        </div>
       </div>
     </header>
   );

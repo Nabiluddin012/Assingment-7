@@ -1,32 +1,30 @@
 import { getProducts } from "@/lib/api";
-import { formatPrice, unitShort, toBn } from "@/lib/utils";
+import { formatPrice, unitShort, getChange } from "@/lib/utils";
 
 export default async function PriceTicker() {
   const products = await getProducts();
   if (products.length === 0) return null;
 
-  // duibar rakhi, jate loop-ta kono jhatka chhara chole
   const items = [...products, ...products];
 
   return (
-    <div className="overflow-hidden bg-gray-900 py-2 text-white">
+    <div className="overflow-hidden border-y border-gray-200 bg-white">
       <div className="ticker-track flex w-max whitespace-nowrap">
         {items.map((p, i) => {
-          const dir = p.change?.dir;
-          const color =
-            dir === "up"
-              ? "text-green-400"
-              : dir === "down"
-              ? "text-red-400"
-              : "text-gray-400";
-          const symbol = dir === "up" ? "▲" : dir === "down" ? "▼" : "—";
-          const pct = toBn(Number(p.change?.pct ?? 0).toFixed(1));
+          const change = getChange(p.change);
 
           return (
-            <span key={`${p.id}-${i}`} className="px-4 text-sm">
-              {p.image} {p.nameBn} {formatPrice(p.today)}/{unitShort(p.unit)}{" "}
-              <span className={color}>
-                {symbol} {pct}%
+            <span
+              key={`${p.id}-${i}`}
+              className="flex items-center gap-1.5 border-r border-gray-200 px-5 py-2 text-sm"
+            >
+              <span>{p.image}</span>
+              <span className="font-medium text-gray-900">{p.nameBn}</span>
+              <span className="text-gray-500">
+                {formatPrice(p.today)}/{unitShort(p.unit)}
+              </span>
+              <span className={`font-semibold ${change.className}`}>
+                {change.text}
               </span>
             </span>
           );
