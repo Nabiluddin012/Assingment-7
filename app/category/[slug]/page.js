@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import SortableProducts from "@/components/SortableProducts";
 import { getCategories, getProducts } from "@/lib/api";
+import { toBn } from "@/lib/utils";
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -42,8 +43,22 @@ export default async function CategoryPage({ params }) {
 
   return (
     <SortableProducts
-      title={`${category.icon} ${category.nameBn}`}
       products={products}
+      header={
+        <div className="flex items-center gap-4 rounded-2xl border border-gray-200 bg-white p-5">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gray-100 text-3xl">
+            {category.icon}
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">
+              {category.nameBn}
+            </h1>
+            <p className="text-sm text-gray-500">
+              {toBn(products.length)}টি পণ্যের আজকের দাম ও পরিবর্তন
+            </p>
+          </div>
+        </div>
+      }
     />
   );
 }

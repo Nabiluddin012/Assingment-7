@@ -20,7 +20,7 @@ export default function NavLinks({ categories }) {
             href={href}
             className={`flex items-center gap-1.5 whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-semibold transition ${
               active
-                ? "bg-green-50 text-green-700"
+              ? "bg-green-700 text-white"
                 : "text-gray-800 hover:bg-gray-100"
             }`}
           >
